@@ -1,27 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+const NProgress = window.NProgress
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/code-edit'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/code-edit',
+    name: 'codeEdit',
+    component: () => import('@views/code-edit/')
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+// 初始化进度条配置
+NProgress && NProgress.configure({ showSpinner: false })
+
+
+router.afterEach((to, from) => {
+  // 显示加载进度条
+  from?.path !== to?.path && NProgress?.start()
 })
 
 export default router
