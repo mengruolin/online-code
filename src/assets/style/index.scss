@@ -1,2 +1,8 @@
 @import './reset.scss';
 @import './nprogress.scss';
+
+html,
+body,
+#app {
+  height: 100%;
+}
